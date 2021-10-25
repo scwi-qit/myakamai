@@ -44,17 +44,27 @@ Next, add Akamai integration, starting with the manual option. There are 3 steps
 
 ![Versions](Screenshots/Versions.jpg)
 
-11.	Select the new version 1.0 and then select the Code Bundle tab
+11.	Select the new version 1.0 and then select the **Code Bundle** tab
 12.	You should see all the files contained in the uploaded bundle (as shown below)
+
+![Code Bundle](Screenshots/CodeBundle.jpg)
  
-13.	Select bundle.json and increment the edgeworker-version (ie from 1.0 to 1.1)
+13.	Select **`bundle.json`** and increment the edgeworker-version (ie from 1.0 to 1.1)
+
+![Bundle JSON](Screenshots/BundleJSON.jpg)
  
-14.	Select integrationConfigProvider.js and replace the text within the quotes with the contents of the json file downloaded from GO.
+14.	Select **`integrationConfigProvider.js`** and replace the text within the quotes with the contents of the json file downloaded from GO.
+
+![integrationConfigProvider.js](Screenshots/IntegrationConfig.jpg)
+
+15.	After updates are complete, **Save as new version**
  
-15.	After updates are complete, Save as new version
+![Save as new version](Screenshots/SaveasNewVersion.jpg)
+
+16.	**Activate version** and wait for activation to complete (5-10 min in staging)
  
-16.	Activate version and wait for activation to complete (5-10 min in staging)
- 
+![ActivateVersion](Screenshots/ActivateVersion.jpg)
+
 Create Property Variables
 There are 4 Property Variables used by the Queue-it EdgeWorker to support all the different integration methods.  The CONFIG_TYPE variable controls the integration method used and be set to any of 3 values: inline, cache, and edgekv.  See the Description field in the screenshot below for guidance on initial value assignment.
 1.	Add the following Property Variables to the property:
