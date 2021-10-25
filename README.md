@@ -19,15 +19,15 @@ Next, add Akamai integration, starting with the manual option. There are 3 steps
 ### Create EdgeWorker ID
 1.	Download **QueueITAkamaiEdgeConnector.tgz** from [github.com/queueit](https://github.com/queueit)
 1.	Go to EdgeWorkers Management page on Akamai Control Center
-![Edgeworkers Management](Screenshots/EdgeworkerMgmt.jpg)
+    ![Edgeworkers Management](Screenshots/EdgeworkerMgmt.jpg)
 
 1.	Click **Create EdgeWorker ID**
-  *	Give your Edgeworker ID a name
-  *	Select a Group
-  *	Select Resource tier of **Dynamic Compute**
-  *	Click **Create EdgeWorker ID**
+    *	Give your Edgeworker ID a name
+    *	Select a Group
+    *	Select Resource tier of **Dynamic Compute**
+    *	Click **Create EdgeWorker ID**
 
-![Create Edgeworker ID](Screenshots/CreateEdgeworkerID.jpg)
+    ![Create Edgeworker ID](Screenshots/CreateEdgeworkerID.jpg)
 
 4.	Select your new EdgeWorker ID from the list on the next page
 ![New Edgeworker ID](Screenshots/NewEdgeworkerID.jpg) 
@@ -37,61 +37,70 @@ Next, add Akamai integration, starting with the manual option. There are 3 steps
 1.	Select the **`QueueITAkamaiEdgeConnector.tgz`** bundle you downloaded from github
 1.	You should see a message that the bundle file is valid
 
-![Create Version](Screenshots/CreateVersion.jpg)
+    ![Create Version](Screenshots/CreateVersion.jpg)
  
 9.	Click **Create version** to upload the bundle
 10.	You should see your new version listed
 
-![Versions](Screenshots/Versions.jpg)
+    ![Versions](Screenshots/Versions.jpg)
 
 11.	Select the new version 1.0 and then select the **Code Bundle** tab
 12.	You should see all the files contained in the uploaded bundle (as shown below)
 
-![Code Bundle](Screenshots/CodeBundle.jpg)
+    ![Code Bundle](Screenshots/CodeBundle.jpg)
  
 13.	Select **`bundle.json`** and increment the edgeworker-version (ie from 1.0 to 1.1)
 
-![Bundle JSON](Screenshots/BundleJSON.jpg)
+    ![Bundle JSON](Screenshots/BundleJSON.jpg)
  
 14.	Select **`integrationConfigProvider.js`** and replace the text within the quotes with the contents of the json file downloaded from GO.
 
-![integrationConfigProvider.js](Screenshots/IntegrationConfig.jpg)
+    ![integrationConfigProvider.js](Screenshots/IntegrationConfig.jpg)
 
 15.	After updates are complete, **Save as new version**
  
-![Save as new version](Screenshots/SaveasNewVersion.jpg)
+    ![Save as new version](Screenshots/SaveasNewVersion.jpg)
 
 16.	**Activate version** and wait for activation to complete (5-10 min in staging)
  
-![ActivateVersion](Screenshots/ActivateVersion.jpg)
+    ![ActivateVersion](Screenshots/ActivateVersion.jpg)
 
-Create Property Variables
-There are 4 Property Variables used by the Queue-it EdgeWorker to support all the different integration methods.  The CONFIG_TYPE variable controls the integration method used and be set to any of 3 values: inline, cache, and edgekv.  See the Description field in the screenshot below for guidance on initial value assignment.
+### Create Property Variables
+There are 4 Property Variables used by the Queue-it EdgeWorker to support all the different integration methods.  The **CONFIG_TYPE** variable controls the integration method used and be set to any of 3 values: inline, cache, and edgekv.  See the Description field in the screenshot below for guidance on initial value assignment.
+
 1.	Add the following Property Variables to the property:
-o	PMUSER_QUEUEIT_CUSTOMERID
-o	PMUSER_QUEUEIT_SECRET_KEY
-o	PMUSER_QUEUEIT_CONFIG_TYPE – set to “inline”
-o	PMUSER_QUEUEIT_API_KEY
- 
-Create PM Rules
+    *	`PMUSER_QUEUEIT_CUSTOMERID`
+    *	`PMUSER_QUEUEIT_SECRET_KEY`
+    *	`PMUSER_QUEUEIT_CONFIG_TYPE` – set to “inline”
+    *	`PMUSER_QUEUEIT_API_KEY`
+
+    ![Property Variables](Screenshots/PropertyVariables.jpg)
+
+### Create PM Rules
 There are 2 PM rules needed to support manual integration updating. 
-1.	Create the EdgeWorker rule
-•	Add criteria of “Path” “does not match one of” 
-o	With value of:  /queueit/integrationconfig/
-•	Add criteria of “File Extension” “is not one of”
-o	With the values below
-aif aiff au avi vin vmp cab carb cct cdf class doc dcr dtd exe flv gcf gff gif grv hdml hqx ico ini jpeg jpg mov mp2 nc pct pdf png ppc pws swa swf txt vbs w32 wav wbmp wmf wmlc wmls wmlsc xsd zip pict tif tiff mid midi ttf eot woff woff2 otf svg svgz webp jxr jar jp2 css js
- 
-•	Add behavior of EdgeWorkers and select your newly created EdgeWorker ID
-•	Save the new rule
- 
+
+1.	Create the **EdgeWorker** rule
+    *	Add criteria of “Path” “does not match one of” 
+        *	With value of:  **`/queueit/integrationconfig/`**
+    *	Add criteria of “File Extension” “is not one of”
+        *	With the values below
+
+        **`aif aiff au avi vin vmp cab carb cct cdf class doc dcr dtd exe flv gcf gff gif grv hdml hqx ico ini jpeg jpg mov mp2 nc pct pdf png ppc pws swa swf txt vbs w32 wav wbmp wmf wmlc wmls wmlsc xsd zip pict tif tiff mid midi ttf eot woff woff2 otf svg svgz webp jxr jar jp2 css js`**
+
+        ![Criteria](Screenshots/Criteria.jpg)
+
+    *	Add behavior of **EdgeWorkers** and select your newly created EdgeWorker ID
+    *	**Save** the new rule
+
+        ![Save Behavior](Screenshots/SaveBehavior.jpg)
+
 2.	Create the EdgeWorkerRetry rule
-•	Add a new child rule to the previously created EdgeWorker rule
-•	Add criteria of “EdgeWorkers Execution Status” matches Failure
-•	Add behavior of “Use alternate hostname in this property” with the following values: 
-o	Alternate Hostname: {{builtin.AK_HOST}}
-o	Modify Request Path: No
-•	Save the new rule
+*	Add a new child rule to the previously created EdgeWorker rule
+*	Add criteria of “EdgeWorkers Execution Status” matches Failure
+*	Add behavior of “Use alternate hostname in this property” with the following values: 
+*	Alternate Hostname: {{builtin.AK_HOST}}
+*	Modify Request Path: No
+*	Save the new rule
  
 3.	Active new Property version in staging or production
  
