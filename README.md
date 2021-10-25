@@ -9,8 +9,8 @@ Akamai integration should be implemented in phases starting with the easiest opt
 First, prepare for the integration in GO:
 1.	Create desired waiting room(s), triggers, and actions in GO. 
 2.	Publish the configuration from the Integrations Overview page
-3.	Download the configuration (customerid_knownuser_integration_config.json)
- 
+3.	Download the configuration (**`customerid_knownuser_integration_config.json`**)
+![Download Config](Screenshots/DownloadConfig.jpg) 
 ## Akamai Integration – Manual Update Option
 Next, add Akamai integration, starting with the manual option. There are 3 steps to completing the Akamai integration.
 1.	Create an EdgeWorker ID
