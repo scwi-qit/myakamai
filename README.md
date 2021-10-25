@@ -2,45 +2,48 @@
 ## Introduction
 There are 3 options for Akamai integration:
 1.	Manually updating integration config within Edge worker code
-2.	Dynamically download and cache integration config
-3.	Push integration config to Akamai EdgeKV
+1.	Dynamically download and cache integration config
+1.	Push integration config to Akamai EdgeKV
 Akamai integration should be implemented in phases starting with the easiest option (manual updating) and progressing to more advanced integration options once the previous option has been completed and tested successfully.
 ## GO Integration Steps
 First, prepare for the integration in GO:
 1.	Create desired waiting room(s), triggers, and actions in GO. 
-2.	Publish the configuration from the Integrations Overview page
-3.	Download the configuration (**`customerid_knownuser_integration_config.json`**)
+1.	Publish the configuration from the Integrations Overview page
+1.	Download the configuration (**`customerid_knownuser_integration_config.json`**)
 ![Download Config](Screenshots/DownloadConfig.jpg) 
 ## Akamai Integration – Manual Update Option
 Next, add Akamai integration, starting with the manual option. There are 3 steps to completing the Akamai integration.
 1.	Create an EdgeWorker ID
-2.	Create Property Variables
-3.	Create PM Rules
+1.	Create Property Variables
+1.	Create PM Rules
 ### Create EdgeWorker ID
 1.	Download **QueueITAkamaiEdgeConnector.tgz** from [github.com/queueit](https://github.com/queueit)
-2.	Go to EdgeWorkers Management page on Akamai Control Center
+1.	Go to EdgeWorkers Management page on Akamai Control Center
+![Edgeworkers Management](Screenshots/EdgeworkerMgmt.jpg)
 
-*[insert picture here]*
+1.	Click **Create EdgeWorker ID**
+  *	Give your Edgeworker ID a name
+  *	Select a Group
+  *	Select Resource tier of **Dynamic Compute**
+  *	Click **Create EdgeWorker ID**
 
-3.	Click **Create EdgeWorker ID**
-o	Give your Edgeworker ID a name
-o	Select a Group
-o	Select Resource tier of **Dynamic Compute**
-o	Click **Create EdgeWorker ID**
+![Create Edgeworker ID](Screenshots/CreateEdgeworkerID.jpg)
 
-*[insert picture here]*
-
- 
 4.	Select your new EdgeWorker ID from the list on the next page
+![New Edgeworker ID](Screenshots/NewEdgeworkerID.jpg) 
+
+1.	Click Create Version
+1.	On the Create Version window, 
+1.	Select the **`QueueITAkamaiEdgeConnector.tgz`** bundle you downloaded from github
+1.	You should see a message that the bundle file is valid
+
+![Create Version](Screenshots/CreateVersion.jpg)
  
-5.	Click Create Version
-6.	On the Create Version window, 
-7.	Select the QueueITAkamaiEdgeConnector.tgz bundle you downloaded from github
-8.	You should see a message that the bundle file is valid
- 
-9.	Click Create version to upload the bundle
+9.	Click **Create version** to upload the bundle
 10.	You should see your new version listed
- 
+
+![Versions](Screenshots/Versions.jpg)
+
 11.	Select the new version 1.0 and then select the Code Bundle tab
 12.	You should see all the files contained in the uploaded bundle (as shown below)
  
